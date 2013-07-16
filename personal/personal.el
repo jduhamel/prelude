@@ -26,6 +26,7 @@
  (global-set-key [f11] 'toggle-fullscreen)
  (prelude-ensure-module-deps '(go-mode
                                go-autocomplete
+                               auto-complete
                                xml-rpc
                                paredit
                                color-theme
