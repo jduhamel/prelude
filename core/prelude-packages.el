@@ -42,8 +42,8 @@
 
 (defvar prelude-packages
   '(ace-jump-mode ack-and-a-half dash diminish elisp-slime-nav
-    expand-region flycheck gist
-    git-commit-mode gitconfig-mode gitignore-mode
+    expand-region flx-ido flycheck gist
+    git-commit-mode gitconfig-mode gitignore-mode grizzl
     guru-mode helm helm-projectile ido-ubiquitous
     key-chord magit rainbow-mode
     smartparens smex solarized-theme undo-tree
@@ -54,6 +54,18 @@
   "Check if all packages in `prelude-packages' are installed."
   (every #'package-installed-p prelude-packages))
 
+(defun prelude-require-package (package)
+  "Install PACKAGE unless already installed."
+  (unless (package-installed-p package)
+    (package-install package)))
+
+(defun prelude-require-packages (packages)
+  "Ensure PACKAGES are installed.
+Missing packages are installed automatically."
+  (mapc #'prelude-require-package packages))
+
+(defalias 'prelude-ensure-module-deps 'prelude-require-packages)
+
 (defun prelude-install-packages ()
   "Install all packages listed in `prelude-packages'."
   (unless (prelude-packages-installed-p)
@@ -62,8 +74,7 @@
     (package-refresh-contents)
     (message "%s" " done.")
     ;; install the missing packages
-    (mapc #'package-install
-     (remove-if #'package-installed-p prelude-packages))))
+    (prelude-require-packages prelude-packages)))
 
 (prelude-install-packages)
 
@@ -122,11 +133,6 @@ PACKAGE is installed only if not already present.  The file is opened in MODE."
      (unless (package-installed-p package)
        (prelude-auto-install extension package mode))))
  prelude-auto-install-alist)
-
-(defun prelude-ensure-module-deps (packages)
-  "Ensure PACKAGES are installed.
-Missing packages are installed automatically."
-  (mapc #'package-install (remove-if #'package-installed-p packages)))
 
 (provide 'prelude-packages)
 ;; Local Variables:

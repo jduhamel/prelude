@@ -222,6 +222,30 @@ there's a region, all lines that region covers will be duplicated."
                   (setq end (point))))
       (goto-char (+ origin (* (length region) arg) arg)))))
 
+;; TODO: Remove code duplication by extracting something more generic
+(defun prelude-duplicate-and-comment-current-line-or-region (arg)
+  "Duplicates and comments the current line or region ARG times.
+If there's no region, the current line will be duplicated.  However, if
+there's a region, all lines that region covers will be duplicated."
+  (interactive "p")
+  (let (beg end (origin (point)))
+    (if (and mark-active (> (point) (mark)))
+        (exchange-point-and-mark))
+    (setq beg (line-beginning-position))
+    (if mark-active
+        (exchange-point-and-mark))
+    (setq end (line-end-position))
+    (let ((region (buffer-substring-no-properties beg end)))
+      (comment-or-uncomment-region beg end)
+      (setq end (line-end-position))
+      (-dotimes arg
+                (lambda (n)
+                  (goto-char end)
+                  (newline)
+                  (insert region)
+                  (setq end (point))))
+      (goto-char (+ origin (* (length region) arg) arg)))))
+
 (defun prelude-rename-file-and-buffer ()
   "Renames current buffer and file it is visiting."
   (interactive)
@@ -373,11 +397,24 @@ Doesn't mess with special buffers."
 
 (defvar prelude-tips
   '("Press <C-c o> to open a file with external program."
-    "Press <C-c p f> to navigate a project's files with ido."
+    "Press <C-c p f> or <s-f> to navigate a project's files with ido."
+    "Press <C-c p g> or <s-g> to run grep on a project."
+    "Press <C-c p s> or <s-p> to switch between projects."
+    "Press <C-=> or <s-x> to expand the selected region."
+    "Press <jj> quickly to jump to the beginning of a visible word."
+    "Press <jk> quickly to jump to a visible character."
+    "Press <jl> quickly to jump to a visible line."
     "Press <C-c h> to navigate a project in Helm."
     "Press <C-c g> to search in Google."
     "Press <C-c r> to rename the current buffer and file it's visiting."
     "Press <C-c t> to open a terminal in Emacs."
+    "Press <C-c k> to kill all the buffers, but the active one."
+    "Press <C-x g> or <s-m> to run magit-status."
+    "Press <C-c D> to delete the current file and buffer."
+    "Press <C-c s> to swap two windows."
+    "Press <S-RET> or <M-o> to open a new beneath the current one."
+    "Press <s-o> to open a line above the current one."
+    "Press <C-c C-z> in a Elisp buffer to launch an interactive Elisp shell."
     "Explore the Prelude menu to find out about some of Prelude extensions to Emacs."
     "Access the official Emacs manual by pressing <C-h r>."
     "Visit WikEmacs at http://wikemacs.org to find out even more about Emacs."))
