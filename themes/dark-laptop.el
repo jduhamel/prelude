@@ -211,6 +211,7 @@
     `(message-mml-face ((t (:bold t :background ,dl-green-3))))
     `(message-separator-face ((t (:foreground ,dl-blue-3))))
     ;;
+
     `(linum ((t (:background ,dl-black))))
     `(fringe ((t (:background ,dl-black))))
 
