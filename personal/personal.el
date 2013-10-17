@@ -16,6 +16,9 @@
 
 ;; (setq py-shell-name "/usr/local/share/python3/ipython3")
 
+;; set up yasnippet
+(require 'yasnippet)
+(yas/initialize)
 
 (defun toggle-fullscreen ()
   "Toggle fullscreen"
