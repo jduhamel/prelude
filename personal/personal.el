@@ -18,7 +18,9 @@
 
 ;; set up yasnippet
 (require 'yasnippet)
-(yas/initialize)
+(require 'go-snippets)
+
+;;(yas/initialize)
 
 (defun toggle-fullscreen ()
   "Toggle fullscreen"
@@ -123,3 +125,6 @@
            (lambda ()
              (require 'outline-magic)
              (define-key outline-minor-mode-map [(f10)] 'outline-cycle)))
+
+(load (expand-file-name "~/quicklisp/slime-helper.el"))
+(setq inferior-lisp-program "sbcl")
