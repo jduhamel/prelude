@@ -48,7 +48,7 @@
 
 (autoload 'gofmt-before-save "go-mode" "Add this to .emacs to run gofmt on the current buffer when saving:")
 (autoload 'godoc "go-mode" "Show go documentation for a query, much like M-x man")
-
+(global-auto-complete-mode)
 
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
 (add-to-list 'auto-mode-alist '("\\.py\\'" . python-mode))
@@ -66,13 +66,10 @@
 ;; ;;;(add-to-list 'load-path "~/gocode/src/github.com/dougm/goflymake")
 (require 'go-flycheck)
 
-;; 
-;;; personal.el ends here
 
 (add-hook
  'go-mode-hook
  '(lambda ()
-
     ;; Outline mode
 
     ;; Level 3: //.  use this to devide the file into major sections
@@ -89,6 +86,7 @@
     (outline-minor-mode 1)
     (local-set-key "\M-a" 'outline-previous-visible-heading)
     (local-set-key "\M-e" 'outline-next-visible-heading)
+    
     (local-set-key "\C-c\C-c" 'go)
 
     (setq tab-width 4)
@@ -128,3 +126,42 @@
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
 (setq inferior-lisp-program "sbcl")
+
+                                       ;
+;; Put this in your .emacs:
+;; 		(require 'my-yas-funs)
+;;
+;; To use in a given major-mode, e.g., js-mode, use:
+(add-hook 'go-mode-hook (lambda () (yas/minor-mode-on)))
+(add-hook 'go-modee-hook (lambda () (add-to-list 'ac-sources `ac-new-yas-source)))
+
+;;
+;; Works best with the following:
+(define-key ac-complete-mode-map "\t" 'ac-complete)
+(define-key ac-complete-mode-map "\r" nil)
+(setq yas/trigger-key "TAB")
+;;
+
+(require 'yasnippet)
+
+(defvar yas-candidates nil)
+
+(defun init-yas-candidates ()
+  (let ((table (yas/get-snippet-tables major-mode)))
+    (if table
+        (let (candidates (list))
+          (mapcar (lambda (mode)          
+                    (maphash (lambda (key value)    
+                               (push key candidates))          
+                             (yas/table-hash mode))) 
+                  table)				
+          (setq yas-candidates candidates)))))
+
+
+(defvar ac-new-yas-source
+  '(	(init . init-yas-candidates)
+        (candidates . yas-candidates)
+        (action . yas/expand)
+        (symbol . "a")))
+
+(provide 'my-yas-funs)
