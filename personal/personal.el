@@ -166,4 +166,6 @@
 
 (provide 'my-yas-funs)
 
+(global-undo-tree-mode -1)
+
 (cd (expand-file-name "~"))
