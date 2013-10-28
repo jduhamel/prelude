@@ -1,0 +1,12 @@
+// Copyright 2013 Joe Duhamel joe.duhamel@cafedecade.com All Rights Reserved.
+
+// Use of this source code is governed by a BSD-style
+// license that can be found in the LICENSE file.
+
+package main
+
+func main () { 
+     fmt.Println("Entering skel")
+     $0
+     fmt.Println("Exiting skel")
+}

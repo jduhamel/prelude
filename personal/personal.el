@@ -19,8 +19,8 @@
 ;; set up yasnippet
 (require 'yasnippet)
 (require 'go-snippets)
+(yas/load-directory "~/.emacs.d/snippets")
 
-;;(yas/initialize)
 
 (defun toggle-fullscreen ()
   "Toggle fullscreen"
@@ -132,7 +132,7 @@
 ;; 		(require 'my-yas-funs)
 ;;
 ;; To use in a given major-mode, e.g., js-mode, use:
-(add-hook 'go-mode-hook (lambda () (yas/minor-mode-on)))
+(add-hook 'go-mode-hook (lambda () (yas-minor-mode-on)))
 (add-hook 'go-modee-hook (lambda () (add-to-list 'ac-sources `ac-new-yas-source)))
 
 ;;
@@ -150,7 +150,7 @@
   (let ((table (yas/get-snippet-tables major-mode)))
     (if table
         (let (candidates (list))
-          (mapcar (lambda (mode)          
+          (mapc (lambda (mode)          
                     (maphash (lambda (key value)    
                                (push key candidates))          
                              (yas/table-hash mode))) 
