@@ -19,3 +19,7 @@ savefile/
 projectile-bookmarks.eld
 session*
 .cask
+
+/ac-comphist.dat
+/savefileido.hist
+/snippets/go-mode/.yas-compiled-snippets.el
