@@ -165,3 +165,5 @@
         (symbol . "a")))
 
 (provide 'my-yas-funs)
+
+(cd (expand-file-name "~"))
