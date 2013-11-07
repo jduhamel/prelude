@@ -59,12 +59,16 @@
                            (local-set-key (kbd "M-.") 'godef-jump)))
 
 (add-hook 'before-save-hook 'gofmt-before-save)
+
+(eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
+
+
 ;;(add-to-list 'load-path "~/gocode/src/github.com/dougm/goflymake")
 
-(require 'go-flymake)
+;;(require 'go-flymake)
 
 ;; ;;;(add-to-list 'load-path "~/gocode/src/github.com/dougm/goflymake")
-(require 'go-flycheck)
+;;(require 'go-flycheck)
 
 
 (add-hook
