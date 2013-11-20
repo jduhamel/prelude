@@ -16,10 +16,9 @@
 ;; Setup go-mode Need to have flymake and snippets setup first due to
 ;; dependencies
 
-(prelude-ensure-module-deps '(go-mode
+(prelude-ensure-module-deps '(
+;;                              go-mode
                               go-autocomplete
-                              go-direx
-                              go-eldoc
                               go-errcheck
                               go-snippets))
 ;; Setup csharp and fsharp mode
@@ -46,9 +45,10 @@
 ;;; Setup Helm
 ;;(prelude-ensure-module-deps '(helm))
 
-(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/")) ; Add the themes to the path.
+;;(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/")) ; Add the themes to the path.
 
 (load-file (expand-file-name "~/.emacs.d/themes/dark-laptop.el"))
+
 
 
 ;; Setup
@@ -63,6 +63,13 @@
                               pastebin
                               ruby-compilation))
 
+
+
+;;; Setup colors
+
+
+;(color-theme-initialize)
+;(color-theme-dark-laptop)
 
 ;; setup python-mode
 
@@ -82,6 +89,7 @@
 (require 'auto-complete)
 (require 'go-autocomplete)
 (require 'auto-complete-config)
+
 
 (autoload 'gofmt-before-save
   "go-mode"
@@ -106,9 +114,8 @@
 ;;(add-to-list 'load-path "~/gocode/src/github.com/dougm/goflymake")
 
 ;;(require 'go-flymake)
-
-(add-to-list 'load-path (expand-file-name "~/go/src/github.com/dougm/goflymake"))
-(require 'go-flycheck)
+;(add-to-list 'load-path (expand-file-name "~/go/src/github.com/dougm/goflymake"))
+;(require 'go-flycheck)
 
 
 (add-hook
@@ -205,6 +212,7 @@ ackage'.")
           (setq yas-candidates candidates)))))
 
 
+
 (defvar ac-new-yas-source
   '(    (init . init-yas-candidates)
         (candidates . yas-candidates)
@@ -225,3 +233,4 @@ ackage'.")
 
 (cd (expand-file-name "~"))
 (provide 'personal)
+;;; (load-theme 'manoj-dark t)
