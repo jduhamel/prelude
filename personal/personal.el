@@ -188,7 +188,10 @@ ackage'.")
 ;; To use in a given major-mode, e.g., js-mode, use:
 (add-hook 'go-mode-hook (lambda () (yas-minor-mode-on)))
 (add-hook 'go-mode-hook (lambda () (add-to-list 'ac-sources `ac-new-yas-source)))
+;;;(add-hook 'prog-mode-hook 'prelude-turn-off-whitespace t)
 
+(setq prelude-whitespace nil)
+(setq prelude-clean-whitspace-on-save t)
 ;;
 ;; Works best with the following:
 (define-key ac-complete-mode-map "\t" 'ac-complete)
@@ -229,8 +232,17 @@ ackage'.")
    (when (not (frame-parameter nil 'fullscreen)) 'fullboth)))
 (global-set-key [f11] 'toggle-fullscreen)
 
+(defun generate-buffer ()
+  (interactive)
+  (switch-to-buffer (make-temp-name "JSD")))
+
+(global-set-key [?\s-a] 'ack)
+(global-set-key [?\s-b] 'generate-buffer)
+
 (global-undo-tree-mode -1)
 
 (cd (expand-file-name "~"))
+
 (provide 'personal)
+
 ;;; (load-theme 'manoj-dark t)
