@@ -35,7 +35,7 @@
 (prelude-ensure-module-deps '(outline-magic))
 
 ;; Setup Slime
-(prelude-ensure-module-deps '(slime))
+;;(prelude-ensure-module-deps '(slime))
 
 ;; Setup ESS for R mode
 (prelude-ensure-module-deps '(ess
@@ -179,7 +179,8 @@ ackage'.")
 ;; Setup Slime
 
 (load (expand-file-name "~/quicklisp/slime-helper.el"))
-(setq inferior-lisp-program "sbcl")
+(setq slime-default-lisp 'sbcl)
+(setq inferior-lisp-program "/opt/local/bin/sbcl")
 
                                         ;
 ;; Put this in your .emacs:
@@ -240,8 +241,13 @@ ackage'.")
 (global-set-key [?\s-b] 'generate-buffer)
 
 (global-undo-tree-mode -1)
+(define-key global-map
+  [remap exchange-point-and-mark]
+  'exchange-point-and-mark)
+
 
 (cd (expand-file-name "~"))
+
 
 (provide 'personal)
 
