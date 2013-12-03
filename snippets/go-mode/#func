@@ -1,0 +1,6 @@
+// $1 does blah using the blah blah 
+// blah blah
+// It returns the blah that we asked 
+func $1 ( $2 ) $3 { 
+     $0
+}
