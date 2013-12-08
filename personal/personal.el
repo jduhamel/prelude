@@ -5,63 +5,65 @@
 (setq prelude-guru nil)                 ;Set the keys to the arrow-keys
 
 ;;; Setup auto-complete and yasnippets
-(prelude-ensure-module-deps '(auto-complete))
-(prelude-ensure-module-deps '(yasnippet))
+(prelude-require-packages  '(auto-complete))
+(prelude-require-packages  '(yasnippet))
 
 ;;; Setup Clojure
-(prelude-ensure-module-deps '( 4clojure
-                               clojure-mode
-                               clojure-snippets))
+(prelude-require-packages '( 4clojure clojure-mode clojure-snippets))
 
 ;; Setup go-mode Need to have flymake and snippets setup first due to
 ;; dependencies
 
-(prelude-ensure-module-deps '(
-;;                              go-mode
+(prelude-require-packages '(
+;;;;;;                              go-mode
                               go-autocomplete
-                              go-errcheck
+                              ;;;;;; go-errcheck
                               go-snippets))
 ;; Setup csharp and fsharp mode
-(prelude-ensure-module-deps '(csharp-mode
-                              fsharp-mode))
+;;;;;; (prelude-require-packages  '(csharp-mode fsharp-mode))
 
 ;; Setup flycheck
-(prelude-ensure-module-deps '(flycheck))
+;;;;;;(prelude-require-packages  '(flycheck))
 
 ;; setup Markdown-mode
-(prelude-ensure-module-deps '(markdown-mode))
+;;;;;;;(prelude-require-packages  '(markdown-mode))
 
 ;; Setup outline-magic
-(prelude-ensure-module-deps '(outline-magic))
+;;;;;;(prelude-require-packages  '(outline-magic))
 
 ;; Setup Slime
-;;(prelude-ensure-module-deps '(slime))
+;;(prelude-require-packages  '(slime))
 
 ;; Setup ESS for R mode
-(prelude-ensure-module-deps '(ess
-                              ess-R-object-popup
-                              ess-R-data-view))
+;;;;;;(prelude-require-packages  '(ess
+;;;;;;                              ess-R-object-popup ess-R-data-view))
 
 ;;; Setup Helm
-;;(prelude-ensure-module-deps '(helm))
+;;;;;;(prelude-require-packages  '(helm))
 
 ;;(add-to-list 'custom-theme-load-path (expand-file-name "~/.emacs.d/themes/")) ; Add the themes to the path.
 
 (load-file (expand-file-name "~/.emacs.d/themes/dark-laptop.el"))
 
 
+(if (eq system-type 'darwin)
+    (setq exec-path (cons "/usr/local/bin" exec-path)))
+
+(setq mac-command-modifier 'meta)
+(setq mac-option-modifier 'super)
 
 ;; Setup
-(prelude-ensure-module-deps '(xml-rpc
-                              paredit
-                              color-theme
-                              rvm
-                              deft
-                              jira
-                              gist
-                              ruby-end
-                              pastebin
-                              ruby-compilation))
+;; (prelude-require-packages  '(
+;;                               xml-rpc
+;;                               paredit
+;;                               color-theme
+;;                               rvm
+;;                               deft
+;;                               jira
+;;                               gist
+;;                               ruby-end
+;;                               pastebin
+;;                               ruby-compilation))
 
 
 
@@ -238,10 +240,38 @@ ackage'.")
   [remap exchange-point-and-mark]
   'exchange-point-and-mark)
 
+(set-face-attribute 'mode-line nil :box nil)
+(set-face-attribute 'mode-line-inactive nil :box nil)
+
+;; font
+(if (eq system-type 'darwin)
+    (set-face-attribute 'default nil :height 120 :family "Monaco")
+    (set-face-attribute 'default nil :height 100 :family "Monaco"))
+
+;; Remove uncessary UI elements
+(scroll-bar-mode -1)
+(tool-bar-mode -1)
+(fringe-mode -1)
+(blink-cursor-mode -1)
+(setq inhibit-startup-screen t)
+(menu-bar-mode -1)
+
+;; Modeline
+(line-number-mode t)
+(column-number-mode t)
+(size-indication-mode t)
+
+;;behavior
+(fset 'yes-or-no-p 'y-or-n-p)
+
+;; linum-mode style
+(setq linum-format "%d ")
+
 
 (cd (expand-file-name "~"))
 
 
+
+
 (provide 'personal)
 
-;;; (load-theme 'manoj-dark t)
