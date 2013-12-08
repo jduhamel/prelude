@@ -43,11 +43,11 @@
 
 (defvar prelude-packages
   '(ace-jump-mode ack-and-a-half anzu dash diminish elisp-slime-nav
-    epl expand-region flx-ido flycheck gist
+    epl expand-region flycheck gist
     gitconfig-mode gitignore-mode grizzl
-    guru-mode projectile ido-ubiquitous
+    guru-mode projectile
     magit move-text rainbow-mode
-    smartparens smex undo-tree
+    smartparens undo-tree
     volatile-highlights zenburn-theme)
   "A list of packages to ensure are installed at launch.")
 
@@ -67,7 +67,7 @@
 Missing packages are installed automatically."
   (mapc #'prelude-require-package packages))
 
-(defalias 'prelude-ensure-module-deps 'prelude-require-packages)
+(define-obsolete-function-alias 'prelude-ensure-module-deps 'prelude-require-packages)
 
 (defun prelude-install-packages ()
   "Install all packages listed in `prelude-packages'."
