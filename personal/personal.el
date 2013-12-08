@@ -106,16 +106,9 @@
                           (auto-complete-mode)
                           (local-set-key (kbd "M-.") 'godef-jump)))
 
-(add-hook 'before-save-hook 'gofmt-before-save)
+;;(add-hook 'before-save-hook 'gofmt-before-save)
 
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
-
-
-;;(add-to-list 'load-path "~/gocode/src/github.com/dougm/goflymake")
-
-;;(require 'go-flymake)
-;(add-to-list 'load-path (expand-file-name "~/go/src/github.com/dougm/goflymake"))
-;(require 'go-flycheck)
 
 
 (add-hook
@@ -137,7 +130,7 @@
     (outline-minor-mode 1)
     (local-set-key "\M-a" 'outline-previous-visible-heading)
     (local-set-key "\M-e" 'outline-next-visible-heading)
-
+    (local-set-key "\C-c\C-f" 'gofmt)
     (local-set-key "\C-c\C-c" 'go)
 
     (setq tab-width 4)
