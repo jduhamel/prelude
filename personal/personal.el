@@ -15,7 +15,7 @@
 ;; dependencies
 
 (prelude-require-packages '(
-;;;;;;                              go-mode
+                              go-mode
                               go-autocomplete
                               ;;;;;; go-errcheck
                               go-snippets))
@@ -53,35 +53,23 @@
 (setq mac-option-modifier 'super)
 
 ;; Setup
-;; (prelude-require-packages  '(
+(prelude-require-packages  '(
 ;;                               xml-rpc
 ;;                               paredit
 ;;                               color-theme
 ;;                               rvm
 ;;                               deft
 ;;                               jira
-;;                               gist
+                               gist
 ;;                               ruby-end
-;;                               pastebin
-;;                               ruby-compilation))
+                               pastebin
+;;                               ruby-compilation
+                               ))
 
 
 
 ;;; Setup colors
 
-
-;(color-theme-initialize)
-;(color-theme-dark-laptop)
-
-;; setup python-mode
-
-;; # (add-to-list 'load-path
-;; #              (expand-file-name
-;; #               "~/.emacs.d/personal/python-mode.el-6.1.2"))
-;; # (setq py-install-directory
-;; #      (expand-file-name "~/.emacs.d/personal/python-mode.el-6.1.2"))
-;; # (require 'python-mode)
-;; (setq py-shell-name "/usr/local/share/python3/ipython3")
 
 ;; set up yasnippet
 (require 'yasnippet)
@@ -93,11 +81,9 @@
 (require 'auto-complete-config)
 
 
-(autoload 'gofmt-before-save
-  "go-mode"
-  "Add this to .emacs to run gofmt on the current buffer when saving:")
-(autoload 'godoc
-  "go-mode" "Show go documentation for a query, much like M-x man")
+(autoload 'gofmt-before-save   "go-mode"  "Add this to .emacs to run gofmt on the current buffer when saving:")
+(autoload 'godoc   "go-mode" "Show go documentation for a query, much like M-x man")
+
 (global-auto-complete-mode)
 
 (add-to-list 'auto-mode-alist '("\\.go\\'" . go-mode))
@@ -108,7 +94,7 @@
                           (auto-complete-mode)
                           (local-set-key (kbd "M-.") 'godef-jump)))
 
-;;(add-hook 'before-save-hook 'gofmt-before-save)
+(add-hook 'before-save-hook 'gofmt-before-save)
 
 (eval-after-load 'tramp '(setenv "SHELL" "/bin/bash"))
 
@@ -116,28 +102,11 @@
 (add-hook
  'go-mode-hook
  '(lambda ()
-    ;; Outline mode
-
-    ;; Level 3: //.  use this to devide the file into major sections
-    ;; Level 4: //   followed by at least two characters
-    ;; Level 4: package
-    ;; Level 4: import
-    ;; Level 4: const
-    ;; Level 4: var  followed by at least one character
-    ;; Level 4: type
-    ;; Level 4: func
-    ;; Level 5 and above: tab-indented lines with at least five characters
-    (make-local-variable 'outline-regexp)
-    (setq outline-regexp "//\\.\\|//[^\r\n\f][^\r\n\f]\\|pack\\|func\\|impo\\|cons\\|var[^\r\n\f]\\|type\\|\t\t*[^\r\n\f]\\{4\\}")
-    (outline-minor-mode 1)
-    (local-set-key "\M-a" 'outline-previous-visible-heading)
-    (local-set-key "\M-e" 'outline-next-visible-heading)
     (local-set-key "\C-c\C-f" 'gofmt)
     (local-set-key "\C-c\C-c" 'go)
-
+    (local-set-key "\C-c\C-b" 'go-build-dir)
     (setq tab-width 4)
     (setq show-trailing-whitespace t)
-
     ))
 
 
@@ -164,12 +133,6 @@ ackage'.")
   (interactive)
   (compile "go build ."))
 
-
-;; Show/hide parts by repeated pressing f10
-(add-hook 'outline-minor-mode-hook
-          (lambda ()
-            (require 'outline-magic)
-            (define-key outline-minor-mode-map [(f10)] 'outline-cycle)))
 
 ;; Setup Slime
 
